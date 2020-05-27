@@ -30,7 +30,7 @@ class UI{
         const form = document.querySelector('#libro-form');
         container.insertBefore(div,form);
 
-        setTimeout(()=>document.querySelector('alert').remove(),3000);
+        setTimeout(()=>document.querySelector('.alert').remove(),3000);
     }
 
     static LimpiarCampos(){
@@ -61,6 +61,6 @@ document.querySelector('#libro-form').addEventListener('submit',(e)=>{
     const isbm = document.querySelector('#isbm').value;
 
     if(titulo === '' || autor === '' || isbm === '' ){
-        UI.mostrarAlerta('por favor ingrese datos','danger');
+        UI.mostrarAlerta('por favor ingrese datos','warning');
     }
 });
