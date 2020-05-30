@@ -34,6 +34,9 @@ class UI{
     }
 
     static LimpiarCampos(){
+        document.querySelector('#titulo').value = '';
+        document.querySelector('#autor').value = '';
+        document.querySelector('#isbm').value = '';
 
     }
 }
@@ -41,10 +44,19 @@ class UI{
 class Datos{
     static traerLibros(){
 
+        let libros;
+        if(localStorage.getItem('libross')===null){
+            libros = [];
+        }else{
+            libros = JSON.parse(localStorage.getItem('libross'));
+        }
+        return libros;
     }
 
-    static agregarLibro(Libro){
-
+    static agregarLibro(libro){
+        const libros = Datos.traerLibros();
+        libros.push(libro);
+        localStorage.setItem('libross',JSON.stringify(libros));
     }
     static removerLibro(isbm){
 
@@ -61,6 +73,12 @@ document.querySelector('#libro-form').addEventListener('submit',(e)=>{
     const isbm = document.querySelector('#isbm').value;
 
     if(titulo === '' || autor === '' || isbm === '' ){
-        UI.mostrarAlerta('por favor ingrese datos','warning');
+        UI.mostrarAlerta('por favor ingrese datos','danger');
+    }else{
+        const libro = new Libro(titulo,autor,isbm)
+            Datos.agregarLibro(libro);
+            UI.LimpiarCampos();
+
+     
     }
 });
